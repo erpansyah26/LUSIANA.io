@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-color: black;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-image: url("asset/rules bg.png");
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      /* ===== TOMBOL HOME (KIRI ATAS) ===== */
+      .login-button {
+        border: none;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+
+        position: absolute;
+        top: 0px;      /* JARAK DARI ATAS */
+        left: 20px;     /* JARAK DARI KIRI */
+
+        transform: scale(0.5);
+        transition: transform 0.3s, opacity 0.4s ease-in-out;
+        opacity: 0;
+      }
+
+      .login-button:hover {
+        transform: scale(0.6);
+      }
+
+      .login-button img {
+        width: 200px;
+        height: auto;
+      }
+
+      .show {
+        opacity: 1;
+      }
+
+      .hidden {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background hidden" id="bg"></div>
+
+    <a href="menu.html" class="login-button hidden" id="btn">
+      <img src="asset/green home.png" alt="Home" />
+    </a>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const bg = document.getElementById("bg");
+        const btn = document.getElementById("btn");
+
+        void bg.offsetWidth;
+
+        setTimeout(() => {
+          bg.classList.add("show");
+          btn.classList.add("show");
+
+          bg.classList.remove("hidden");
+          btn.classList.remove("hidden");
+        }, 50);
+      });
+
+      const link = document.getElementById("btn");
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const href = this.getAttribute("href");
+
+        const bg = document.getElementById("bg");
+        const btn = document.getElementById("btn");
+
+        bg.classList.remove("show");
+        btn.classList.remove("show");
+
+        bg.classList.add("hidden");
+        btn.classList.add("hidden");
+
+        setTimeout(() => {
+          window.location.href = href;
+        }, 400);
+      });
+    </script>
+  </body>
+</html>

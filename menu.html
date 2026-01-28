@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Menu Utama</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        background-color: black;
+      }
+
+      .background-image {
+        position: absolute;
+        inset: 0;
+        background: url("asset/menu beground.png") center / cover no-repeat;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      .background-image.show {
+        opacity: 1;
+      }
+
+      .button-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 40px;
+        place-items: center;
+        width: 80%;
+        max-width: 800px;
+        z-index: 10;
+      }
+
+      /* ===== TOMBOL MENU ===== */
+      .login-button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+
+        opacity: 0;
+        transform: translateY(50px) scale(1.3);
+
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      .login-button.show {
+        opacity: 1;
+        transform: translateY(0) scale(1.3);
+      }
+
+      .login-button:hover {
+        transform: translateY(0) scale(1.4);
+      }
+
+      .login-button img {
+        width: 100%;
+        max-width: 250px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 🔊 BACKGROUND MUSIC -->
+    <video
+      id="bg-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      style="display: none"
+    >
+      <source src="asset/menu musik.mp4" type="video/mp4" />
+    </video>
+
+    <div class="background-image" id="bg"></div>
+
+    <div class="button-container">
+      <a href="materi.html" class="login-button">
+        <img src="asset/materi buttun.png" />
+      </a>
+      <a href="index.html" class="login-button">
+        <img src="asset/game buttun.png" />
+      </a>
+      <a href="carabermain.html" class="login-button">
+        <img src="asset/rules buttun.png" />
+      </a>
+      <a href="information.html" class="login-button">
+        <img src="asset/about us buttun.png" />
+      </a>
+    </div>
+
+    <script>
+      const video = document.getElementById("bg-video");
+      const bg = document.getElementById("bg");
+      const buttons = document.querySelectorAll(".login-button");
+
+      window.addEventListener("DOMContentLoaded", () => {
+        bg.classList.add("show");
+
+        buttons.forEach((btn, i) => {
+          setTimeout(() => {
+            btn.classList.add("show");
+          }, i * 150);
+        });
+      });
+
+      document.addEventListener(
+        "click",
+        () => {
+          video.muted = false;
+          video.volume = 0.5;
+          video.play();
+        },
+        { once: true }
+      );
+
+      document.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const href = link.href;
+
+          bg.classList.remove("show");
+          buttons.forEach((btn) => btn.classList.remove("show"));
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 400);
+        });
+      });
+    </script>
+  </body>
+</html>

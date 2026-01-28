@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 100vh;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        font-family: Arial, sans-serif;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      /* === ANIMASI KELUAR KE HOME === */
+      body.fade-out {
+        opacity: 0;
+      }
+
+      /* ===== BACKGROUND ===== */
+      .background {
+        position: absolute;
+        inset: 0;
+        background-image: url("asset/materi bg.png");
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      .background.show {
+        opacity: 1;
+      }
+
+      /* ===== CONTAINER ===== */
+      .login-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        max-width: 1200px;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      /* ===== TOMBOL HOME ===== */
+      .login-button {
+        margin-top: 65px; /* 🔽 tombol turun sedikit */
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        transition-delay: 0.2s;
+      }
+
+      .login-button.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .login-button:hover {
+        transform: translateY(0) scale(1.1);
+      }
+
+      .login-button img {
+        width: 200px;
+      }
+
+      /* ===== 4 TOMBOL MATERI ===== */
+      .center-buttons {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        gap: 20px;
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: 20;
+      }
+
+      .center-buttons.show {
+        opacity: 1;
+      }
+
+      .center-buttons img {
+        width: 100px;
+        height: 60px;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+      .center-buttons img:hover {
+        transform: scale(1.1);
+      }
+
+      /* ===== CARD SLIDER ===== */
+      .card-slider-container {
+        width: 100%;
+        position: relative;
+        margin-bottom: 30px;
+      }
+
+      .card-slider {
+        position: relative;
+        width: 100%;
+        height: 70vh;
+        max-height: 600px;
+        overflow: hidden;
+      }
+
+      .card {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
+      .card.active {
+        opacity: 1;
+      }
+
+      .card img {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+      }
+
+      /* ===== NAV SLIDER ===== */
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 80px;
+        height: 80px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+
+      .slider-nav:hover {
+        transform: translateY(-50%) scale(1.1);
+        opacity: 0.85;
+      }
+
+      .slider-nav img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .slider-nav-left {
+        left: 20px;
+      }
+
+      .slider-nav-right {
+        right: 20px;
+      }
+
+      /* ===== INDIKATOR ===== */
+      .slider-indicators {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 15;
+      }
+
+      .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+      }
+
+      .indicator.active {
+        background: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background" id="bg"></div>
+
+    <div class="center-buttons">
+      <a href="https://youtu.be/Cbj4xkARhkY?si=auOcmnAB-BGgXM1B" target="_blank">
+        <img src="asset/materi 1 buttton.png" />
+      </a>
+      <a href="https://youtu.be/QlDntG3Mi_4?si=DUbodhNAqWenxe5Q" target="_blank">
+        <img src="asset/materi 2 button.png" />
+      </a>
+      <a href="https://youtu.be/NihNPyDagKE?si=eWHwJzAP6GRsA_zV" target="_blank">
+        <img src="asset/materi 3 buttun.png" />
+      </a>
+      <a href="https://youtu.be/dg8-x8uGuZ0?si=kfeCn92fvsKomeyz" target="_blank">
+        <img src="asset/materi 4 buttun.png" />
+      </a>
+    </div>
+
+    <div class="login-container" id="loginContainer">
+      <div class="card-slider-container">
+        <div class="card-slider">
+          <div class="card"><img src="asset/Materi.png" /></div>
+          <div class="card"><img src="asset/materi banjir.png" /></div>
+          <div class="card"><img src="asset/materi puting beliung.png" /></div>
+          <div class="card"><img src="asset/materi kebakaran.png" /></div>
+          <div class="card"><img src="asset/materi tanah longsor.png" /></div>
+        </div>
+
+        <button class="slider-nav slider-nav-left" id="prevBtn">
+          <img src="asset/left button.png" />
+        </button>
+        <button class="slider-nav slider-nav-right" id="nextBtn">
+          <img src="asset/right  button.png" />
+        </button>
+
+        <div class="slider-indicators" id="indicators"></div>
+      </div>
+
+      <a href="menu.html" class="login-button" id="btn">
+        <img src="asset/menu button.png" />
+      </a>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const bg = document.getElementById("bg");
+        const loginContainer = document.getElementById("loginContainer");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const indicators = document.getElementById("indicators");
+        const centerButtons = document.querySelector(".center-buttons");
+        const loginButton = document.getElementById("btn");
+        const cards = document.querySelectorAll(".card");
+
+        let currentIndex = 0;
+
+        cards.forEach((_, i) => {
+          const dot = document.createElement("div");
+          dot.className = "indicator" + (i === 0 ? " active" : "");
+          dot.onclick = () => goTo(i);
+          indicators.appendChild(dot);
+        });
+
+        function update() {
+          cards.forEach((c) => c.classList.remove("active"));
+          cards[currentIndex].classList.add("active");
+          document.querySelectorAll(".indicator").forEach((d, i) =>
+            d.classList.toggle("active", i === currentIndex)
+          );
+        }
+
+        function goTo(i) {
+          currentIndex = i;
+          update();
+        }
+
+        prevBtn.onclick = () => {
+          currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+          update();
+        };
+
+        nextBtn.onclick = () => {
+          currentIndex = (currentIndex + 1) % cards.length;
+          update();
+        };
+
+        update();
+
+        const img = new Image();
+        img.src = "asset/BG-MATERI.png";
+        img.onload = () => {
+          bg.classList.add("show");
+          loginContainer.style.opacity = 1;
+          centerButtons.classList.add("show");
+          loginButton.classList.add("show");
+        };
+
+        /* === ANIMASI KEMBALI KE HOME === */
+        loginButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          document.body.classList.add("fade-out");
+          setTimeout(() => {
+            window.location.href = "menu.html";
+          }, 400);
+        });
+      });
+    </script>
+  </body>
+</html>

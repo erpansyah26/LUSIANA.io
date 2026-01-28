@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .image-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      /* ===== TOMBOL LOGIN (CARA 4) ===== */
+      .login-button {
+        border: none;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+
+        position: relative;
+        top: 25px;     /* ATAS – BAWAH */
+        left: 7px;    /* KIRI – KANAN */
+
+        transform: scale(1.4);
+        transition: transform 0.3s, opacity 0.4s ease-in-out;
+        opacity: 0;
+      }
+
+      .login-button:hover {
+        transform: scale(1.5);
+      }
+
+      .login-button img {
+        width: 150px;   /* UKURAN TOMBOL */
+        height: auto;
+      }
+
+      .show {
+        opacity: 1;
+      }
+
+      .hidden {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Image Background -->
+    <img
+      src="asset/Tanah Longsor.png"
+      class="image-background hidden"
+      id="bg-image"
+      alt="Background"
+    />
+
+    <a href="menu.html" class="login-button hidden" id="btn">
+      <img src="asset/play buttun.png" alt="Login" />
+    </a>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const bg = document.getElementById("bg-image");
+        const btn = document.getElementById("btn");
+
+        void bg.offsetWidth;
+
+        setTimeout(() => {
+          bg.classList.add("show");
+          btn.classList.add("show");
+
+          bg.classList.remove("hidden");
+          btn.classList.remove("hidden");
+        }, 50);
+      });
+
+      const link = document.getElementById("btn");
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const href = this.getAttribute("href");
+
+        const bg = document.getElementById("bg-image");
+        const btn = document.getElementById("btn");
+
+        bg.classList.remove("show");
+        btn.classList.remove("show");
+
+        bg.classList.add("hidden");
+        btn.classList.add("hidden");
+
+        setTimeout(() => {
+          window.location.href = href;
+        }, 400);
+      });
+    </script>
+  </body>
+</html>
